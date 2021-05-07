@@ -6,18 +6,23 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.lefarmico.flatstacktesttask.R
 import com.lefarmico.flatstacktesttask.adapters.TracksAdapter
+import com.lefarmico.flatstacktesttask.databinding.ActivityMainBinding
 import com.lefarmico.flatstacktesttask.db.entities.TrackDTO
 import com.lefarmico.flatstacktesttask.db.entities.UserDTO
-import com.lefarmico.flatstacktesttask.databinding.ActivityMainBinding
 import com.lefarmico.flatstacktesttask.ui.details.DetailsFragment
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-    val viewModel: MainViewModel by viewModels()
     private val detailsFragment = DetailsFragment()
+    private val viewModel: MainViewModel by viewModels()
+    private val scope = CoroutineScope(Dispatchers.IO)
 
     lateinit var token: String
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +40,18 @@ class MainActivity : AppCompatActivity() {
             getUserInfo()
         }
 
-        viewModel.tracksDTOLiveData.observe(this) {
-            showTracks(it)
-        }
         viewModel.userDTOLiveData.observe(this) {
             showUser(it)
         }
+
+        scope.launch {
+            viewModel.loadTracks().collect {
+                withContext(Dispatchers.Main) {
+                    showTracks(it)
+                }
+            }
+        }
+
         Toast.makeText(this, "Login success $token", Toast.LENGTH_SHORT).show()
     }
 

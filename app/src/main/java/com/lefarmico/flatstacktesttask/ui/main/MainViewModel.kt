@@ -4,9 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lefarmico.flatstacktesttask.App
 import com.lefarmico.flatstacktesttask.data.Interactor
+import com.lefarmico.flatstacktesttask.db.MainRepository
 import com.lefarmico.flatstacktesttask.db.entities.TrackDTO
 import com.lefarmico.flatstacktesttask.db.entities.UserDTO
-import com.lefarmico.flatstacktesttask.db.MainRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MainViewModel : ViewModel() {
@@ -16,7 +17,6 @@ class MainViewModel : ViewModel() {
 
     private lateinit var token: String
 
-    val tracksDTOLiveData = MutableLiveData<List<TrackDTO>>()
     val userDTOLiveData = MutableLiveData<UserDTO>()
     init {
         App.appComponent.inject(this)
@@ -25,15 +25,14 @@ class MainViewModel : ViewModel() {
         token = userToken
     }
     fun getTracksDTO() {
-        interactor.getPlayListTracks("1FmmPWeCwkds06SAuLjzKM", "Bearer $token", this)
+        interactor.getPlayListTracks("1FmmPWeCwkds06SAuLjzKM", "Bearer $token")
     }
-    fun setTracksDTO(trackDTOList: List<TrackDTO>) {
-        tracksDTOLiveData.postValue(trackDTOList)
-    }
+
     fun getUserInfo() {
         interactor.getUserInfo("Bearer $token", this)
     }
     fun setUserDTO(userDTO: UserDTO) {
         userDTOLiveData.postValue(userDTO)
     }
+    fun loadTracks(): Flow<List<TrackDTO>> = interactor.getTracksFromDB()
 }

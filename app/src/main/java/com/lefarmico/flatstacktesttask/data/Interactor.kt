@@ -4,15 +4,22 @@ import android.util.Log
 import com.example.example.UserInfo
 import com.lefarmico.flatstacktesttask.data.entities.playlistEntity.TracksItems
 import com.lefarmico.flatstacktesttask.db.MainRepository
+import com.lefarmico.flatstacktesttask.db.entities.TrackDTO
 import com.lefarmico.flatstacktesttask.ui.main.MainViewModel
 import com.lefarmico.flatstacktesttask.utils.Converter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class Interactor(private val repo: MainRepository, private val retrofitService: SpotifyApi) {
 
-    fun getPlayListTracks(playlistId: String, token: String, mainViewModel: MainViewModel) {
+    val scope = CoroutineScope(Dispatchers.IO)
+
+    fun getPlayListTracks(playlistId: String, token: String) {
         retrofitService.getPlayListTracks(
             playlistId,
             token,
@@ -22,8 +29,12 @@ class Interactor(private val repo: MainRepository, private val retrofitService: 
             40
         ).enqueue(object : Callback<TracksItems> {
             override fun onResponse(call: Call<TracksItems>, response: Response<TracksItems>) {
-                val trackDTOList = Converter.convertFromTracksItemsToTracksDTO(response.body()?.items)
-                mainViewModel.setTracksDTO(trackDTOList)
+                scope.launch {
+                    val trackDTOList = Converter.convertFromTracksItemsToTracksDTO(response.body()?.items)
+                    for (i in trackDTOList.indices) {
+                        repo.putTrackToDB(trackDTOList[i])
+                    }
+                }
             }
 
             override fun onFailure(call: Call<TracksItems>, t: Throwable) {
@@ -44,4 +55,6 @@ class Interactor(private val repo: MainRepository, private val retrofitService: 
             }
         })
     }
+
+    fun getTracksFromDB(): Flow<List<TrackDTO>> = repo.getTracksFromDB()
 }
