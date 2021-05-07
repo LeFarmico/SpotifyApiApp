@@ -7,12 +7,17 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.lefarmico.flatstacktesttask.databinding.ActivitySplashBinding
+import com.lefarmico.flatstacktesttask.private.ApiConstants.BUNDLE_NAME
 import com.lefarmico.flatstacktesttask.private.ApiConstants.REQUEST_CODE
+import com.lefarmico.flatstacktesttask.private.ApiConstants.TOKEN_KEY
 import com.lefarmico.flatstacktesttask.ui.main.MainActivity
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
-import com.spotify.sdk.android.auth.AuthorizationResponse.Type.*
+import com.spotify.sdk.android.auth.AuthorizationResponse.Type.EMPTY
+import com.spotify.sdk.android.auth.AuthorizationResponse.Type.ERROR
+import com.spotify.sdk.android.auth.AuthorizationResponse.Type.TOKEN
+import com.spotify.sdk.android.auth.AuthorizationResponse.Type.UNKNOWN
 
 class SplashActivity : AppCompatActivity() {
 
@@ -57,9 +62,9 @@ class SplashActivity : AppCompatActivity() {
         Log.d(TAG, "Login success")
         val tokenIntent = Intent(this, MainActivity::class.java).apply {
             val bundle = Bundle().apply {
-                putString("TOKKEN", response.accessToken)
+                putString(TOKEN_KEY, response.accessToken)
             }
-            putExtra("LOGIN_BUNDLE", bundle)
+            putExtra(BUNDLE_NAME, bundle)
         }
         startActivity(tokenIntent)
     }

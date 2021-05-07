@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.lefarmico.flatstacktesttask.R
-import com.lefarmico.flatstacktesttask.db.entities.TrackDTO
 import com.lefarmico.flatstacktesttask.databinding.DetailsFragmentBinding
+import com.lefarmico.flatstacktesttask.db.entities.TrackDTO
+import com.lefarmico.flatstacktesttask.private.ApiConstants.TRACK_INFO_KEY
 import com.squareup.picasso.Picasso
 
 class DetailsFragment : BottomSheetDialogFragment() {
@@ -19,7 +19,6 @@ class DetailsFragment : BottomSheetDialogFragment() {
 
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: DetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +32,7 @@ class DetailsFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val trackDto = arguments?.getSerializable("TRACK_INFO") as TrackDTO
+        val trackDto = arguments?.getSerializable(TRACK_INFO_KEY) as TrackDTO
         showTrack(trackDto)
     }
 

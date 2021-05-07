@@ -9,6 +9,9 @@ import com.lefarmico.flatstacktesttask.adapters.TracksAdapter
 import com.lefarmico.flatstacktesttask.databinding.ActivityMainBinding
 import com.lefarmico.flatstacktesttask.db.entities.TrackDTO
 import com.lefarmico.flatstacktesttask.db.entities.UserDTO
+import com.lefarmico.flatstacktesttask.private.ApiConstants.BUNDLE_NAME
+import com.lefarmico.flatstacktesttask.private.ApiConstants.TOKEN_KEY
+import com.lefarmico.flatstacktesttask.private.ApiConstants.TRACK_INFO_KEY
 import com.lefarmico.flatstacktesttask.ui.details.DetailsFragment
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
@@ -31,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val bundle = intent.extras?.getBundle("LOGIN_BUNDLE")
-        token = bundle?.getString("TOKKEN", "")!!
+        val bundle = intent.extras?.getBundle(BUNDLE_NAME)
+        token = bundle?.getString(TOKEN_KEY, "")!!
 
         viewModel.apply {
             setToken(token)
@@ -68,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         binding.tracksRecyclerView.apply {
             adapter = TracksAdapter {
                 val bundle = Bundle()
-                bundle.putSerializable("TRACK_INFO", it)
+                bundle.putSerializable(TRACK_INFO_KEY, it)
                 detailsFragment.arguments = bundle
                 detailsFragment.show(supportFragmentManager, "TRACK_DETAILS")
             }.apply {
