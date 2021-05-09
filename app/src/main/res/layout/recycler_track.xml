@@ -20,7 +20,8 @@
             android:layout_height="40dp"
             android:scaleX="0.7"
             android:scaleY="0.7"
-            android:src="@drawable/px_spotify_logo"
+            style="@style/SpotifyLogo"
+            android:contentDescription="@string/spotify_logo"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/track_poster_image_view"
             app:layout_constraintStart_toStartOf="@id/track_poster_image_view"
@@ -31,6 +32,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             tools:src="@tools:sample/avatars"
+            android:contentDescription="@string/album_poster"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spotify_logo_image_view"/>

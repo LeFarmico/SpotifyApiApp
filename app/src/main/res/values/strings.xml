@@ -15,4 +15,9 @@
     <string name="login_with_spotify">LOGIN WITH SPOTIFY</string>
     <string name="greetings">GREETINGS FLATSTACK! THIS IS MY TEST APP</string>
     <string name="description">To use this app You need spotify account!</string>
+    <string name="splash_background">Splash Background</string>
+    <string name="spotify_logo">Spotify Logo</string>
+    <string name="album_poster">Album Poster</string>
+    <string name="user_name">User Name</string>
+    <string name="user_image">User Image</string>
 </resources>

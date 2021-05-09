@@ -1,9 +1,9 @@
 package com.lefarmico.flatstacktesttask.utils
 
 import com.example.example.UserInfo
+import com.lefarmico.flatstacktesttask.data.entities.playlistEntity.Items
 import com.lefarmico.flatstacktesttask.db.entities.TrackDTO
 import com.lefarmico.flatstacktesttask.db.entities.UserDTO
-import com.lefarmico.flatstacktesttask.data.entities.playlistEntity.Items
 
 object Converter {
 
@@ -19,7 +19,8 @@ object Converter {
                     trackName = it.track.name,
                     artists = artists,
                     uri = it.track.uri,
-                    poster = it.track.album.images[0].url
+                    poster = it.track.album.images[0].url,
+                    href = it.track.href
                 )
             )
         }

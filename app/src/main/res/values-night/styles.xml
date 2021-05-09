@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Background">
+        <item name="srcCompat">@drawable/ic_background_layer_dark</item>
+    </style>
+
+    <style name="MainTextColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="SpotifyLogo">
+        <item name="srcCompat">@drawable/px_white_spotify_logo</item>
+    </style>
+
+    <style name="MainBackgroundColor">
+        <item name="background">?attr/colorOnPrimary</item>
+    </style>
+</resources>

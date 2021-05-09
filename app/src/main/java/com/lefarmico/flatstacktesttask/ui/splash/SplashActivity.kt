@@ -58,8 +58,9 @@ class SplashActivity : AppCompatActivity() {
     private fun login(request: AuthorizationRequest) {
         AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request)
     }
+
     private fun connected(response: AuthorizationResponse) {
-        Log.d(TAG, "Login success")
+        Log.d(TAG, "Login success.")
         val tokenIntent = Intent(this, MainActivity::class.java).apply {
             val bundle = Bundle().apply {
                 putString(TOKEN_KEY, response.accessToken)
@@ -68,10 +69,12 @@ class SplashActivity : AppCompatActivity() {
         }
         startActivity(tokenIntent)
     }
+
     private fun onFailureConnect(response: AuthorizationResponse) {
         Toast.makeText(this, "Login error, try again.", Toast.LENGTH_SHORT).show()
         Log.e(TAG, response.error)
     }
+
     private fun onEmptyResponse(response: AuthorizationResponse) {
         Toast.makeText(
             this,

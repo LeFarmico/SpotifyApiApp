@@ -1,11 +1,10 @@
 package com.lefarmico.flatstacktesttask.ui.details
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.lefarmico.flatstacktesttask.R
 import com.lefarmico.flatstacktesttask.databinding.DetailsFragmentBinding
@@ -15,10 +14,9 @@ import com.squareup.picasso.Picasso
 
 class DetailsFragment : BottomSheetDialogFragment() {
 
-    private val bundle = this.arguments
-
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: DetailsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +31,7 @@ class DetailsFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val trackDto = arguments?.getSerializable(TRACK_INFO_KEY) as TrackDTO
+        viewModel.postAppIntent(trackDto.uri, trackDto.href)
         showTrack(trackDto)
     }
 
@@ -45,13 +44,9 @@ class DetailsFragment : BottomSheetDialogFragment() {
         binding.trackArtistsTextView.text = trackDto.artists.joinToString(", ")
         binding.trackNameTextView.text = trackDto.trackName
         binding.playOnSpotifyButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(trackDto.uri)
-            intent.putExtra(
-                Intent.EXTRA_REFERRER,
-                Uri.parse("android-app://" + requireContext().packageName)
-            )
-            startActivity(intent)
+            viewModel.startAppIntentLiveData.observe(viewLifecycleOwner) {
+                startActivity(it)
+            }
         }
     }
 }

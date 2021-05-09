@@ -24,9 +24,9 @@ class Interactor(private val repo: MainRepository, private val retrofitService: 
             playlistId,
             token,
             "ES",
-            "items(id,track(artists(name),name,album(images),uri))",
+            "items(id,track(artists(name),name,album(images),uri,href))",
             20,
-            40
+            0
         ).enqueue(object : Callback<TracksItems> {
             override fun onResponse(call: Call<TracksItems>, response: Response<TracksItems>) {
                 scope.launch {

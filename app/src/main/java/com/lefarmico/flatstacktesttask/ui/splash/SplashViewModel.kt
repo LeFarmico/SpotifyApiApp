@@ -14,20 +14,8 @@ class SplashViewModel : ViewModel() {
     val request = MutableLiveData<AuthorizationRequest>()
     val response = MutableLiveData<AuthorizationResponse>()
 
-    val scopes = arrayOf(
-        "user-read-recently-played",
-        "user-library-modify",
-        "user-library-read",
-        "playlist-modify-public",
-        "playlist-modify-private",
-        "user-read-email",
-        "user-read-private",
-        "user-read-birthdate",
-        "playlist-read-private",
-        "playlist-read-collaborative"
-    )
+    private val streamingScope = arrayOf("streaming")
 
-    val streamingScope = arrayOf("streaming")
     init {
         authenticate()
     }
@@ -41,6 +29,5 @@ class SplashViewModel : ViewModel() {
 
     fun setObserverAuthorizationResponse(resultCode: Int, data: Intent?) {
         response.postValue(AuthorizationClient.getResponse(resultCode, data))
-
     }
 }

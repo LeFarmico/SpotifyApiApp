@@ -40,4 +40,20 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">?android:attr/listDivider</item>
     </style>
+
+    <style name="Background">
+        <item name="srcCompat">@drawable/ic_background_layer_light</item>
+    </style>
+
+    <style name="MainTextColor">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="SpotifyLogo">
+        <item name="srcCompat">@drawable/px_spotify_logo</item>
+    </style>
+
+    <style name="MainBackgroundColor">
+        <item name="background">@color/white</item>
+    </style>
 </resources>

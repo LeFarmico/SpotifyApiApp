@@ -1,6 +1,7 @@
 package com.lefarmico.flatstacktesttask.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -52,10 +53,10 @@ class MainActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     showTracks(it)
                 }
+                Log.d("Track_Flow", "Flow is finished")
             }
         }
-
-        Toast.makeText(this, "Login success $token", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Login success.", Toast.LENGTH_SHORT).show()
     }
 
     private fun showUser(userDTO: UserDTO) {

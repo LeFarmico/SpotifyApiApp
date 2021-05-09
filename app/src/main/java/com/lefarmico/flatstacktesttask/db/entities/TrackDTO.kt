@@ -17,5 +17,6 @@ data class TrackDTO(
     @ColumnInfo(name = "title") val trackName: String,
     @ColumnInfo(name = "artists") val artists: List<String>,
     @ColumnInfo(name = "uri") val uri: String,
-    @ColumnInfo(name = "poster_path") val poster: String
+    @ColumnInfo(name = "poster_path") val poster: String,
+    @ColumnInfo(name = "href") val href: String
 ) : Serializable

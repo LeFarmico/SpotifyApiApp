@@ -18,6 +18,7 @@ class MainViewModel : ViewModel() {
     private lateinit var token: String
 
     val userDTOLiveData = MutableLiveData<UserDTO>()
+
     init {
         App.appComponent.inject(this)
     }
