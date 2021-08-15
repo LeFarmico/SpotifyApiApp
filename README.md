@@ -1,7 +1,7 @@
 # SpotifyApiApp
-Простое приложение использующее Spotify API, включающее в себя авторизацию, и включение композиций из приложения
+Simple app that uses Spotify API, with authorization, and the ability to play music from the application
 
-Ссылка на .apk файл https://drive.google.com/file/d/19AY03DQB8EleQADjAWB2wroz7HPd0GNs/view?usp=sharing
+link to .apk https://drive.google.com/file/d/19AY03DQB8EleQADjAWB2wroz7HPd0GNs/view?usp=sharing
 
 Spotify API Documentation https://developer.spotify.com/documentation/
 
